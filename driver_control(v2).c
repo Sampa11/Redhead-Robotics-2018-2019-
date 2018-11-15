@@ -16,48 +16,57 @@ Changed the control structure from if/else if/else form to a if/else if/else for
 of the base. Are the units in the wait command seconds? Debating the removal of the stopMotor/motor = 0 and commands from within
 the up and down functions for the lift. Removed the == 1 from the button control, its uneccesary. No auton yet.
 Adding code for the claw.
+
+9/28/2018: Changed the code to match the driver code in the competition file if we need to test just this code.
 */
 
 
 //NOTE: this is for DRIVER CONTROL
 task main()
 {
-	while(true)
-	{
+	int tank = 1;
+	int arcade = 0;
+  	while (true){
 
-		//start of BASE CONTROL (TANK)
+		if(vexRT[Btn7R]==1)
+			{
+			tank=1;
+			arcade=0;
+			}
+if(vexRT[Btn7L]==1)
+		{
+		tank=0;
+		arcade=1;
+		}
+// This is Tank Control
+if(tank)
+		{
 		motor[BL_BASE] = vexRT[Ch3];
 		motor[FL_BASE] = vexRT[Ch3];
 		motor[BR_BASE] = vexRT[Ch2];
 		motor[FR_BASE] = vexRT[Ch2];
-		//end of BASE CONTROL (TANK)
+		}
 
-		//start of possible ARCADE CONTROL
-		/*
+//This is Arcade Control
+if(arcade)
+		{
 		motor[BL_BASE] = (vexRT[Ch3]+vexRT[Ch4])/2;
 		motor[FL_BASE] = (vexRT[Ch3]+vexRT[Ch4])/2;
 		motor[BR_BASE] = (vexRT[Ch3]-vexRT[Ch4])/2;
 		motor[FR_BASE] = (vexRT[Ch3]-vexRT[Ch4])/2;
-		*/
-		//end of possible ARCADE CONTROL;
+		}
 
 
 		//start of LIFT CONTROL
 		if(vexRT[Btn8U])//moves lift up
 		{
-			motor[TL_LIFT] = 127;
-			motor[TR_LIFT] = 127;
-			//wait1Msec(1,375);//wait(1.375); units are seconds???? if so the change is correct
-			//motor[TL_LIFT] = 0;note: why are these commands in here if you set the motors to zero at the end of this control structure?
-			//motor[TR_LIFT] = 0;
+			motor[TL_LIFT] = 63.5;
+			motor[TR_LIFT] = 63.5;
 		}
 		else if(vexRT[Btn8D])//moves lift down
 		{
-			motor[TL_LIFT] = -100;
-			motor[TR_LIFT] = -100;
-			//wait1Msec(1,375);//wait(1.375); units are seconds???? if so the change is correct
-			//motor[TL_LIFT] = 0;note: why are these commands in here if you set the motors to zero at the end of this control structure?
-			//motor[TR_LIFT] = 0;
+			motor[TL_LIFT] = -63.5;
+			motor[TR_LIFT] = -63.5;
 		}
 		else//sets speed of lift motors to zero
 		{
@@ -68,17 +77,19 @@ task main()
 
 
 		//start of CLAW control
-		/* ***PSEUDOCODE b/c I do not know what controls driver wants for the CLAW
-			if(vex[Btn]){//close
-				motor[CLAW[ = 127;
+			if(vexRT[Btn6U]==1)
+	  {
+				motor[CLAW] = 37.5;
 		}
-			else if(vex[Btn]){//open
-				motor[CLAW] = -127;
+
+		else if(vexRT[Btn6D]){
+			motor[CLAW] = -37.5;
 		}
-		else{
+
+		else
+		{
 			motor[CLAW] = 0;
 		}
-		*/
 		//end of CLAW control
 	}
 }

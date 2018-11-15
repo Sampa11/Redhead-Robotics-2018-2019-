@@ -114,8 +114,8 @@ int arcade = 0;
 		*/
 
 
-	//NOTE: this is for DRIVER CONTROL
-		if(vexRT[Btn7R]==1)
+
+if(vexRT[Btn7R]==1)
 			{
 			tank=1;
 			arcade=0;
