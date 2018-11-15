@@ -57,7 +57,7 @@ if(arcade)
 		}
 
 
-		//start of LIFT CONTROL
+		//start of LIFT CONTROL- NOTE: ONE OF THE MOTORS NEEDS TO BE REVERSED
 		if(vexRT[Btn8U])//moves lift up
 		{
 			motor[TL_LIFT] = 63.5;
